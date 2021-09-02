@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    // discord
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
+    jcenter()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    // APIs
+    // discord
+    implementation("net.dv8tion:JDA:4.3.0_314")
+    compile 'com.jagrosh:jda-utilities:2.0'
+    // google http
+    implementation 'com.google.http-client:google-http-client:1.40.0'
+    // google gson
+    compile 'com.google.code.gson:gson:2.8.8'
+    implementation 'com.google.http-client:google-http-client-gson:1.40.0'
+
+    // configuration
+    implementation 'org.apache.commons:commons-configuration2:2.7'
+    implementation 'commons-beanutils:commons-beanutils:1.9.4'
+    implementation 'commons-io:commons-io:2.11.0'
+
+
+    // dagger
+    compile 'com.google.dagger:dagger:2.37'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.37'
+
+    // JAR generator
+    implementation 'com.github.jengelman.gradle.plugins:shadow:4.0.3'
+
+    // lombok
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    // LOGGING
+    implementation 'org.slf4j:slf4j-api:1.7.25'
+    compile "org.slf4j:slf4j-simple:1.7.25"
+
+}
