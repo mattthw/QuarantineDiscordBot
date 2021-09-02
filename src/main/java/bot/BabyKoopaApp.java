@@ -1,24 +1,21 @@
 package bot;
 
-import bot.listener.EtheriumListener;
-import bot.listener.PoopCommand;
-import bot.listener.ReactionPlanter;
-import bot.listener.WelvinTheReplier;
-import com.jagrosh.jdautilities.command.Command;
-import com.jagrosh.jdautilities.command.CommandClientBuilder;
-import com.jagrosh.jdautilities.command.CommandEvent;
-import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
+import bot.listener.*;
 import dagger.BabyKoopaComponent;
 import dagger.DaggerBabyKoopaComponent;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.JDA;
 
 import javax.inject.Inject;
+import javax.inject.Named;
+
+import static dagger.DependenciesModule.SMS_KEY;
 
 @Slf4j
 public class BabyKoopaApp {
 
     @Inject JDA jda;
+    @Inject @Named(SMS_KEY) String smsKey;
 
     private BabyKoopaApp() {
         BabyKoopaComponent component = DaggerBabyKoopaComponent.builder().build();
@@ -38,6 +35,8 @@ public class BabyKoopaApp {
         jda.addEventListener(new EtheriumListener());
         log.info("adding PoopCommand listener");
         jda.addEventListener(new PoopCommand());
+        log.info("adding sms listener");
+        jda.addEventListener(new SMSNotifier(smsKey));
     }
 
     public static void main(String[] args) {

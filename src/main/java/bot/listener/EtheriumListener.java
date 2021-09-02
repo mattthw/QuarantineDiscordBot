@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.apache.commons.io.IOUtils;
 
@@ -22,8 +21,8 @@ import java.util.regex.Pattern;
 @Slf4j
 public class EtheriumListener extends ListenerAdapter {
 
-    static HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
-    static JsonFactory JSON_FACTORY = new GsonFactory();
+    private static HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+    private static JsonFactory JSON_FACTORY = new GsonFactory();
 
     @Override
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
@@ -77,7 +76,7 @@ public class EtheriumListener extends ListenerAdapter {
                 request -> request.setParser(new JsonObjectParser(JSON_FACTORY))
         );
 
-        GenericUrl url = new GenericUrl("https://min-api.cryptocompare.com/data/price");
+        GenericUrl url = new GenericUrl();
         url.setScheme("https");
         url.setHost("min-api.cryptocompare.com/");
         url.setPathParts(Arrays.asList("data", "price"));

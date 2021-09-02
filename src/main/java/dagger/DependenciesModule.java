@@ -1,8 +1,5 @@
 package dagger;
 
-import dagger.Binds;
-import dagger.Module;
-import dagger.Provides;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -11,7 +8,6 @@ import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.security.auth.login.LoginException;
@@ -24,6 +20,7 @@ public class DependenciesModule {
     public static final String DISCORD_TOKEN = "discord.botToken";
     public static final String CONFIGURATION_PROPERTIES = "configuration.properties";
     public static final String DISCORD_APPLICATION_ID = "discord.applicationId";
+    public static final String SMS_KEY = "sms.key";
 
     @Singleton
     @Provides
@@ -42,6 +39,13 @@ public class DependenciesModule {
     @Named(DISCORD_TOKEN)
     static String providesToken(Configuration configuration) {
         return configuration.getString(DISCORD_TOKEN);
+    }
+
+    @Singleton
+    @Provides
+    @Named(SMS_KEY)
+    static String providesSms(Configuration configuration) {
+        return configuration.getString(SMS_KEY);
     }
 
     @Singleton
