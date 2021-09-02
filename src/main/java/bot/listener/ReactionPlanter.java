@@ -12,6 +12,7 @@ import java.util.Map;
 @Slf4j
 public class ReactionPlanter extends ListenerAdapter {
 
+    public static final String CHANNEL = "crypto";
     static Map<String, Double> poopChance = new HashMap<>();
 
     static {
@@ -22,7 +23,7 @@ public class ReactionPlanter extends ListenerAdapter {
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
         try {
             GuildMessageEvent m = new GuildMessageEvent(event);
-            steveIsABitch(event, m);
+            steveIsTheWorst(event, m);
             poopOnFriendsChance(m);
 
         } catch (Exception e) {
@@ -42,13 +43,17 @@ public class ReactionPlanter extends ListenerAdapter {
         }
     }
 
-    private void steveIsABitch(@Nonnull GuildMessageReceivedEvent event, GuildMessageEvent m) {
-        // steve is a bitch
-        if (m.getChannel().getName().contains("crypto") && m.getAuthor().getName().contains("StockSteve")) {
+    /**
+     * Assert superiority as the best bot of the discord server.
+     * @param event event
+     * @param m event
+     */
+    private void steveIsTheWorst(@Nonnull GuildMessageReceivedEvent event, GuildMessageEvent m) {
+        if (m.getChannel().getName().contains(CHANNEL) && m.getAuthor().getName().contains("StockSteve")) {
             log.info(String.format("Adding reaction to message '%s'", m.getMessage().getContentStripped()));
             Emote emote = event.getGuild().getEmotesByName("btc", true).iterator().next();
             m.getMessage().addReaction(emote).queue();
-            TextChannel channel = event.getGuild().getTextChannelsByName("crypto", true).get(0);
+            TextChannel channel = event.getGuild().getTextChannelsByName(CHANNEL, true).get(0);
             channel.sendMessage(m.getMessage()).queue();
         }
     }
