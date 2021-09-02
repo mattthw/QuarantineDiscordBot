@@ -17,7 +17,7 @@ public class ReactionPlanter extends ListenerAdapter {
     static Map<String, Double> poopChance = new HashMap<>();
 
     static {
-        poopChance.put("JWalshington", 0.33);
+        poopChance.put("JWalshington", 0.009);
     }
 
     @Override
@@ -34,14 +34,12 @@ public class ReactionPlanter extends ListenerAdapter {
         // poop on friends
         double chance = Math.random();
         String username = event.getMessage().getAuthor().getName();
-        double threshold = poopChance.getOrDefault(username, 0.01);
+        double threshold = poopChance.getOrDefault(username, 0.001);
         if (chance <= threshold) {
-            log.info(String.format("%n%s rolled a %.2f out of %.2f, I am gonna poop all over him", username, chance, threshold));
-//            event.getMessage().addReaction("💩").queue();
-            Emote emote = event.getGuild().getEmotesByName("btc", true).iterator().next();
-            event.getMessage().addReaction(emote).queue();
+            log.info(String.format("%n%s rolled a %.3f out of %.3f, I am gonna poop all over him", username, chance, threshold));
+            event.getMessage().addReaction("💩").queue();
         } else {
-            log.info(String.format("%n%s rolled a %.2f out of %.2f, I will not poop on him", username, chance, threshold));
+            log.info(String.format("%n%s rolled a %.3f out of %.3f, I will not poop on him", username, chance, threshold));
         }
     }
 
@@ -52,7 +50,7 @@ public class ReactionPlanter extends ListenerAdapter {
     private void steveIsTheWorst(@Nonnull GuildMessageReceivedEvent event) {
         if (event.getChannel().getName().contains(CHANNEL)
                 && event.getAuthor().isBot()
-                && !event.getAuthor().getName().equalsIgnoreCase("BabyKoopaBot")) {
+                && !event.getAuthor().getName().equalsIgnoreCase("StockSophie")) {
 
             log.info(String.format("Adding reaction to message '%s'", event.getMessage().getContentStripped()));
             Emote emote = event.getGuild().getEmotesByName("btc", true).iterator().next();

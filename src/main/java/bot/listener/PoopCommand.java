@@ -26,10 +26,10 @@ public class PoopCommand extends ListenerAdapter {
                 log.info(String.format("using custom threshold: %s", threshold));
             }
             if (chance <= threshold) {
-                log.info(String.format("%n%s rolled a %.2f out of %.2f, I am gonna poop all over him", event.getMessage().getAuthor().getName(), chance, threshold));
+                log.info(String.format("%n%s rolled a %.2f out of %.3f, I am gonna poop all over him", event.getMessage().getAuthor().getName(), chance, threshold));
                 event.getMessage().addReaction("💩").queue();
             } else {
-                log.info(String.format("%n%s rolled a %.2f out of %.2f, I will not poop on him", event.getMessage().getAuthor().getName(), chance, threshold));
+                log.info(String.format("%n%s rolled a %.2f out of %.3f, I will not poop on him", event.getMessage().getAuthor().getName(), chance, threshold));
                 event.getMessage().addReaction("👎").queue();
             }
         }

@@ -43,18 +43,23 @@ public class SMSNotifier extends ListenerAdapter {
             String phone = userPhones.get(userName);
             log.info(String.format("SMSNotifier: user: %s channel: %s phone: %s", userName, channel, phone));
             if (null != phone) {
-                sendSms(userName, phone, channel);
+                sendSms(event, userName);
             }
         }
     }
 
-    private void sendSms(String userName, String phone, String channel) {
+    private void sendSms(GuildMessageReceivedEvent event, String username) {
         try {
-
+            String channel = event.getChannel().getName();
+            String phone = userPhones.get(username);
+            String server = event.getGuild().getName();
+            String message = event.getMessage().getContentDisplay();
+            String author = event.getAuthor().getName();
             // build data
             String formattedMessage = String.format(
-                    "Ahoy there matey!! You've (@%s) been summoned in the Quarantine Soiree channel #%s!",
-                    userName,
+                    "Ahoy there matey!! You've (@%s) been summoned in the %s channel #%s!",
+                    username,
+                    server,
                     channel
             );
             final NameValuePair[] data = {

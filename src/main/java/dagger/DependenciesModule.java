@@ -21,6 +21,7 @@ public class DependenciesModule {
     public static final String CONFIGURATION_PROPERTIES = "configuration.properties";
     public static final String DISCORD_APPLICATION_ID = "discord.applicationId";
     public static final String SMS_KEY = "sms.key";
+    public static final String CRYPTO_KEY = "crypto.key";
 
     @Singleton
     @Provides
@@ -50,6 +51,13 @@ public class DependenciesModule {
 
     @Singleton
     @Provides
+    @Named(CRYPTO_KEY)
+    static String providesCrypto(Configuration configuration) {
+        return configuration.getString(CRYPTO_KEY);
+    }
+
+    @Singleton
+    @Provides
     @Named(DISCORD_APPLICATION_ID)
     static String providesApplicationId(Configuration configuration) {
         String token = configuration.getString(DISCORD_APPLICATION_ID);
@@ -61,7 +69,7 @@ public class DependenciesModule {
     @Provides
     static JDA providesJDA(@Named(DISCORD_TOKEN) String token) {
         JDABuilder jdaBuilder = JDABuilder.createDefault(token);
-        jdaBuilder.setActivity(Activity.playing("🌚"));
+        jdaBuilder.setActivity(Activity.playing("1/1000=💩. Crypto. Deez🥜. SMS."));
         try {
             return jdaBuilder.build();
         } catch (LoginException e) {
