@@ -1,4 +1,4 @@
-# BabyKoopa
+# QuarantineDiscordBot
 Discord bot
 
 ## Setup
